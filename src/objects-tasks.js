@@ -156,8 +156,26 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  let c25 = 0;
+  let c50 = 0;
+
+  return queue.every((bill) => {
+    if (bill === 25) {
+      c25 += 1;
+    } else if (bill === 50) {
+      c25 -= 1;
+      c50 += 1;
+    } else if (bill === 100) {
+      if (c50 > 0) {
+        c50 -= 1;
+        c25 -= 1;
+      } else {
+        c25 -= 3;
+      }
+    }
+    return c25 >= 0;
+  });
 }
 
 /**
@@ -173,8 +191,14 @@ function sellTickets(/* queue */) {
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  return {
+    width,
+    height,
+    getArea() {
+      return this.width * this.height;
+    },
+  };
 }
 
 /**
@@ -187,8 +211,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { height: 10, width: 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 /**
